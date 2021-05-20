@@ -50,10 +50,9 @@ app.post('/addProduct', (req, res) =>{
     })
 })
 
-app.delete('/deleteProduct/:id', (req, res) =>{
-    const id = ObjectID(req.params.id)
-    productCollection.findOneAndDelete({_id:id})
-    .then(documents => res.send(!!documents.value))
+app.delete('/delete/:id', (req, res) =>{
+    productCollection.deleteOne({_id: ObjectID(req.params.id)})
+    .then(documents => res.send(!!documents.deletedCount))
   })
 
   app.post('/addOrder', (req, res) =>{
