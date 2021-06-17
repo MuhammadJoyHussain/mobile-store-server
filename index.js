@@ -23,6 +23,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
   const productCollection = client.db("freshValley").collection("products");
   const orderCollection = client.db("freshValley").collection("orders");
+  const adminCollection = client.db("freshValley").collection("admins");
   
 
 
@@ -70,7 +71,12 @@ app.get('/orders', (req, res)=>{
     })
 })
 
-
+app.get('/isAdmin', (req, res) => {
+    console.log(req.query);
+    adminCollection.find({ email: req.query.email })
+        .toArray((err, docs) =>{ res.send(!!docs.length)
+        })
+})
 
 });
 
