@@ -63,6 +63,15 @@ app.delete('/delete/:id', (req, res) =>{
         res.send(result.insertedCount > 0)
     })
 })
+ 
+
+app.post('/isAdmin', (req, res) =>{
+    const newAdmin = req.body;
+    adminCollection.insertOne(newAdmin)
+    .then(result =>{
+        res.send(result.insertedCount > 0)
+    })
+})
 
 app.get('/orders', (req, res)=>{
     orderCollection.find()
